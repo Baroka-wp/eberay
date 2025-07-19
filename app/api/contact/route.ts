@@ -28,11 +28,20 @@ const EMAIL_CONFIG = {
   subject: 'Nouvelle demande de contact - E-BEYRAY'
 };
 
-// Initialisation de Mailjet
-const mailjet = new Mailjet({
-  apiKey: process.env.MAILJET_API_KEY || '',
-  apiSecret: process.env.MAILJET_API_SECRET || ''
-});
+// Fonction pour initialiser Mailjet de façon sécurisée
+function getMailjetInstance() {
+  const apiKey = process.env.MAILJET_API_KEY || '';
+  const apiSecret = process.env.MAILJET_API_SECRET || '';
+  
+  if (!apiKey || !apiSecret) {
+    return null;
+  }
+  
+  return new Mailjet({
+    apiKey,
+    apiSecret
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -125,11 +134,10 @@ Cette demande a été envoyée depuis le site E-BEYRAY le ${new Date().toLocaleS
 Répondez directement à ${formData.email} pour contacter le client.
     `;
 
-    // Vérifier que les clés Mailjet sont configurées
-    const hasApiKey = process.env.MAILJET_API_KEY && process.env.MAILJET_API_KEY.trim() !== '';
-    const hasSecret = process.env.MAILJET_API_SECRET && process.env.MAILJET_API_SECRET.trim() !== '';
+    // Obtenir l'instance Mailjet de façon sécurisée
+    const mailjet = getMailjetInstance();
     
-    if (!hasApiKey || !hasSecret) {
+    if (!mailjet) {
       console.error('❌ Clés Mailjet non configurées dans les variables d\'environnement');
       
       // Log pour debug en mode développement
@@ -264,22 +272,16 @@ Répondez directement à ${formData.email} pour contacter le client.
 }
 
 export async function GET() {
-  const hasApiKey = process.env.MAILJET_API_KEY && process.env.MAILJET_API_KEY.trim() !== '';
-  const hasSecret = process.env.MAILJET_API_SECRET && process.env.MAILJET_API_SECRET.trim() !== '';
-  const isConfigured = hasApiKey && hasSecret;
+  const mailjet = getMailjetInstance();
+  const isConfigured = mailjet !== null;
   
   let connectionTest = null;
   
   // Test de connexion Mailjet si les clés sont présentes
-  if (isConfigured) {
+  if (isConfigured && mailjet) {
     try {
-      const testMailjet = new Mailjet({
-        apiKey: process.env.MAILJET_API_KEY || '',
-        apiSecret: process.env.MAILJET_API_SECRET || ''
-      });
-      
       // Test simple : récupérer les informations du compte
-      const result = await testMailjet.get('user').request();
+      const result = await mailjet.get('user').request();
       const resultBody = result.body as any;
       connectionTest = {
         valid: true,
@@ -294,6 +296,9 @@ export async function GET() {
       };
     }
   }
+  
+  const hasApiKey = process.env.MAILJET_API_KEY && process.env.MAILJET_API_KEY.trim() !== '';
+  const hasSecret = process.env.MAILJET_API_SECRET && process.env.MAILJET_API_SECRET.trim() !== '';
   
   return NextResponse.json({
     message: 'API Contact - Mailjet configuré pour l\'envoi d\'emails',

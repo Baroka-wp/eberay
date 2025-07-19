@@ -4,7 +4,7 @@ import Footer from '../components/ui/section/footer';
 
 export default function Home() {
   return (
-    <main className="h-screen w-full bg-gray-100">
+    <main className="bg-background">
       <Hero />
       <Features />
       <Footer />

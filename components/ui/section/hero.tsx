@@ -1,163 +1,103 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { ArrowRight, BookOpen, Users, MessageSquare } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section className="relative mt-16 flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-purple-800 to-purple-600 p-8 pb-8 pt-16 text-white">
-      {/* Animated background elements */}
+    <section className="relative min-h-screen bg-background pt-16">
+      {/* Background pattern */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-purple-300 opacity-10"
-            style={{
-              width: `${Math.random() * 300 + 50}px`,
-              height: `${Math.random() * 300 + 50}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              x: [0, Math.random() * 100 - 50],
-              y: [0, Math.random() * 100 - 50],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 15,
-              repeat: Infinity,
-              repeatType: 'reverse',
-            }}
-          />
-        ))}
+        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-accent opacity-5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-accent opacity-5 blur-3xl" />
       </div>
 
-      <motion.div
-        className="mb-6 mt-8 text-center text-6xl font-bold"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Apprenez. Collaborez. <br />
-        <span className="text-purple-200">Réussissez.</span>
-      </motion.div>
+      <div className="container-apple relative z-10 flex min-h-screen flex-col items-center justify-center text-center">
+        {/* Main heading */}
+        <div className="mb-8">
+          <h1 className="mb-6 font-display text-5xl font-semibold leading-tight text-foreground md:text-6xl lg:text-7xl">
+            Apprenez.
+            <br />
+            <span className="text-accent">Collaborez.</span>
+            <br />
+            Réussissez.
+          </h1>
+        </div>
 
-      <motion.div
-        className="mb-8 max-w-2xl text-center text-2xl font-medium"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-      >
-        Un environnement d&apos;apprentissage interactif et collaboratif pour votre parcours
-        éducatif
-      </motion.div>
+        {/* Subtitle */}
+        <p className="mb-12 max-w-2xl text-lg text-text-subtle md:text-xl">
+          Un environnement d'apprentissage interactif et collaboratif pour votre parcours éducatif.
+          Accédez à vos cours, échangez avec vos professeurs et camarades.
+        </p>
 
-      <motion.p
-        className="mb-10 max-w-2xl text-center text-lg text-purple-200"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-      >
-        Accédez à vos cours, échangez avec vos professeurs et camarades, et suivez votre progression
-        scolaire en temps réel.
-      </motion.p>
+        {/* CTA Buttons */}
+        <div className="mb-16 flex flex-col gap-4 sm:flex-row sm:gap-6">
+          <button className="btn btn-primary group">
+            Commencer maintenant
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </button>
+          <button className="btn btn-secondary">
+            En savoir plus
+          </button>
+        </div>
 
-      <motion.div
-        className="mt-4 flex flex-col gap-4 pb-[150px] sm:flex-row"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.9 }}
-      >
-        <motion.button
-          className="rounded-md bg-white px-8 py-3 font-bold text-purple-800 transition-colors hover:bg-purple-50"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Commencer maintenant
-        </motion.button>
-        <motion.button
-          className="rounded-md border-2 border-white bg-transparent px-8 py-3 font-bold text-white transition-colors hover:bg-white hover:bg-opacity-10"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          En savoir plus
-        </motion.button>
-      </motion.div>
-
-      {/* Floating icons representing features */}
-      <div className="absolute bottom-40 left-10 hidden lg:block">
-        <motion.div
-          className="rounded-full bg-purple-700 p-4 pb-10 shadow-lg"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 0.9, x: 0 }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+        {/* Hero Image Section */}
+        <div className="mb-16 max-w-4xl">
+          <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-lg">
+            <img
+              src="/assets/img_1.jpeg"
+              alt="Apprentissage collaboratif et interactif"
+              className="w-full h-full object-cover"
             />
-          </svg>
-        </motion.div>
-      </div>
+          </div>
+        </div>
 
-      <div className="absolute bottom-60 right-10 hidden lg:block">
-        <motion.div
-          className="rounded-full bg-purple-700 p-4 shadow-lg"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 0.9, x: 0 }}
-          transition={{ duration: 1, delay: 1.4 }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-            />
-          </svg>
-        </motion.div>
-      </div>
+        {/* Feature highlights */}
+        <div className="grid-apple-3 max-w-4xl">
+          <div className="card-glass p-6 text-center">
+            <div className="mb-4 flex justify-center">
+              <div className="rounded-full bg-accent p-3">
+                <BookOpen className="h-6 w-6 text-white" />
+              </div>
+            </div>
+            <h3 className="mb-2 font-semibold text-foreground">Cours Interactifs</h3>
+            <p className="text-sm text-text-subtle">
+              Accédez à tous vos cours avec des filtres intelligents et des notes personnelles
+            </p>
+          </div>
 
-      {/* Wave effect at the bottom */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full">
-          <path
-            fill="#f9fafb"
-            fillOpacity="1"
-            d="M0,224L60,218.7C120,213,240,203,360,197.3C480,192,600,192,720,202.7C840,213,960,235,1080,229.3C1200,224,1320,192,1380,176L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
-          ></path>
-        </svg>
-      </div>
+          <div className="card-glass p-6 text-center">
+            <div className="mb-4 flex justify-center">
+              <div className="rounded-full bg-accent p-3">
+                <Users className="h-6 w-6 text-white" />
+              </div>
+            </div>
+            <h3 className="mb-2 font-semibold text-foreground">Communauté</h3>
+            <p className="text-sm text-text-subtle">
+              Créez des groupes privés et échangez avec vos camarades et professeurs
+            </p>
+          </div>
 
-      <motion.div
-        className="absolute bottom-20 z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-      >
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" className="animate-bounce">
-          <path
-            d="M7 10L12 15L17 10"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </motion.div>
+          <div className="card-glass p-6 text-center">
+            <div className="mb-4 flex justify-center">
+              <div className="rounded-full bg-accent p-3">
+                <MessageSquare className="h-6 w-6 text-white" />
+              </div>
+            </div>
+            <h3 className="mb-2 font-semibold text-foreground">Chat Intégré</h3>
+            <p className="text-sm text-text-subtle">
+              Discutez directement avec vos professeurs ou l'IA pour vos questions
+            </p>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <div className="flex flex-col items-center text-text-subtle">
+            <span className="mb-2 text-xs font-medium">Découvrir</span>
+            <div className="h-6 w-1 rounded-full bg-text-subtle animate-bounce" />
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

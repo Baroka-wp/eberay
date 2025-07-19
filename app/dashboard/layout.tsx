@@ -1,6 +1,5 @@
 'use client';
 
-import { Navbar } from '@/components/navbar';
 import { Sidebar } from '@/components/sidebar';
 import { ReactNode } from 'react';
 
@@ -10,19 +9,15 @@ interface LayoutProps {
 
 export default function DashboardLayout({ children }: LayoutProps) {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
-      <div className="fixed left-0 top-16 h-full w-64 bg-gray-800 p-4">
+      <div className="fixed left-0 top-16 z-40 h-full w-64 border-r border-border bg-background">
         <Sidebar />
       </div>
 
       {/* Main content */}
-      <div className="ml-64 mt-16 flex-1">
-        {/* Navbar */}
-        <Navbar />
-
-        {/* Content (children) */}
-        <main className="p-4">{children}</main>
+      <div className="ml-64 flex-1 pt-16">
+        <main>{children}</main>
       </div>
     </div>
   );

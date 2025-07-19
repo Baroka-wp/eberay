@@ -55,50 +55,72 @@ const config: Config = {
         'bold': '700',
       },
       colors: {
-        // Apple-inspired color palette
-        background: '#FAFAF8',
-        foreground: '#141413',
-        accent: '#8989DE',
-        'accent-hover': '#7A7ACF',
-        'text-subtle': '#828179',
-        border: '#E6E4DD',
-        'border-hover': '#D4D2CB',
-        'hover-bg': '#F0EFEA',
-        'glass-bg': 'rgba(255, 255, 255, 0.8)',
-        'glass-border': 'rgba(255, 255, 255, 0.2)',
+        // Logo-inspired color palette (Bleu 60%, Rouge 30%, Vert 10%)
+        background: '#FAFCFF', // Très léger teinté bleu
+        foreground: '#1A1F2E', // Bleu très foncé
         
-        // Legacy shadcn colors for compatibility
+        // Bleu (60% - Couleur dominante)
+        primary: {
+          DEFAULT: '#2563EB', // Bleu principal
+          light: '#3B82F6',
+          dark: '#1D4ED8',
+          hover: '#1E40AF',
+        },
+        
+        // Rouge (30% - Couleur secondaire) 
+        secondary: {
+          DEFAULT: '#DC2626', // Rouge principal
+          light: '#EF4444',
+          dark: '#B91C1C',
+          hover: '#991B1B',
+        },
+        
+        // Vert (10% - Couleur d'accent)
+        accent: {
+          DEFAULT: '#16A34A', // Vert principal
+          light: '#22C55E',
+          dark: '#15803D',
+          hover: '#166534',
+        },
+        
+        // Couleurs fonctionnelles basées sur la charte
+        'text-subtle': '#64748B', // Bleu grisé
+        border: '#E1E7F5', // Bleu très clair
+        'border-hover': '#CBD5E8', // Bleu clair
+        'hover-bg': '#F1F5F9', // Bleu très très clair
+        'glass-bg': 'rgba(248, 250, 252, 0.9)', // Fond glassmorphism
+        'glass-border': 'rgba(59, 130, 246, 0.2)', // Bordure glassmorphism
+        
+        // États spéciaux
+        success: '#16A34A', // Vert
+        warning: '#F59E0B', // Orange
+        error: '#DC2626', // Rouge
+        info: '#2563EB', // Bleu
+        
+        // Legacy shadcn colors for compatibility - adapted to new palette
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: '#FFFFFF',
+          foreground: '#1A1F2E',
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        primary: {
-          DEFAULT: '#8989DE',
-          foreground: '#FFFFFF',
-        },
-        secondary: {
-          DEFAULT: '#F0EFEA',
-          foreground: '#141413',
+          DEFAULT: '#FFFFFF',
+          foreground: '#1A1F2E',
         },
         muted: {
-          DEFAULT: '#F0EFEA',
-          foreground: '#828179',
+          DEFAULT: '#F1F5F9',
+          foreground: '#64748B',
         },
         destructive: {
-          DEFAULT: '#FF6B6B',
+          DEFAULT: '#DC2626',
           foreground: '#FFFFFF',
         },
-        ring: '#8989DE',
+        ring: '#2563EB',
         chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
+          '1': '#2563EB', // Bleu
+          '2': '#DC2626', // Rouge
+          '3': '#16A34A', // Vert
+          '4': '#F59E0B', // Orange
+          '5': '#8B5CF6', // Violet
         },
       },
       borderRadius: {
@@ -109,11 +131,11 @@ const config: Config = {
         '2xl': '16px',
       },
       boxShadow: {
-        'sm': '0 1px 2px rgba(0, 0, 0, 0.05)',
-        'md': '0 1px 3px rgba(0, 0, 0, 0.1)',
-        'lg': '0 4px 6px rgba(0, 0, 0, 0.1)',
-        'xl': '0 10px 15px rgba(0, 0, 0, 0.1)',
-        'glass': '0 8px 32px rgba(0, 0, 0, 0.1)',
+        'sm': '0 1px 2px rgba(37, 99, 235, 0.05)',
+        'md': '0 1px 3px rgba(37, 99, 235, 0.1)',
+        'lg': '0 4px 6px rgba(37, 99, 235, 0.1)',
+        'xl': '0 10px 15px rgba(37, 99, 235, 0.1)',
+        'glass': '0 8px 32px rgba(37, 99, 235, 0.1)',
       },
       backdropBlur: {
         'xs': '2px',

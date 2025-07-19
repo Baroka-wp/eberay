@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { BookOpen, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,8 +13,14 @@ export function Navbar() {
       <div className="container-apple flex h-16 items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
-            <BookOpen className="h-5 w-5 text-white" />
+          <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-lg overflow-hidden">
+            <Image
+              src="/assets/logo.png"
+              alt="E-BEYRAY Logo"
+              width={32}
+              height={32}
+              className="w-full h-full object-contain"
+            />
           </div>
           <span className="font-display text-xl font-semibold text-foreground">E-BEYRAY</span>
         </Link>

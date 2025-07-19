@@ -1,10 +1,18 @@
+// File: components/auth/auth-form.tsx
+// Purpose: Formulaire d'authentification simple
+// Dependencies: react-hook-form, zod, @hookform/resolvers
+// Sections:
+// 1. Validation avec zod
+// 2. Gestion du formulaire
+// 3. Logique d'authentification locale
+
 'use client';
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { supabase } from '@/lib/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
@@ -20,6 +28,7 @@ export function AuthForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const { login } = useAuth();
   const router = useRouter();
 
   const {
@@ -35,23 +44,23 @@ export function AuthForm() {
     setErrorMessage('');
 
     try {
-      let authResponse;
+      // Simulation d'une authentification - remplacez par votre logique d'API
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simule un délai d'API
+
       if (isLogin) {
-        authResponse = await supabase.auth.signInWithPassword({
+        // Simulation de connexion - remplacez par votre logique
+        const mockUser = {
+          id: '1',
           email: data.email,
-          password: data.password,
-        });
+          name: 'Utilisateur Test'
+        };
+        login(mockUser);
+        router.push('/dashboard');
       } else {
-        authResponse = await supabase.auth.signUp({
-          email: data.email,
-          password: data.password,
-        });
+        // Simulation d'inscription - remplacez par votre logique
+        setErrorMessage('Inscription réussie ! Vous pouvez maintenant vous connecter.');
+        setIsLogin(true);
       }
-
-      const { error, data: session } = authResponse;
-
-      if (error) throw error;
-      if (session) router.push('/dashboard'); // Redirige après connexion
     } catch (error: any) {
       setErrorMessage(error.message || 'Une erreur est survenue');
     } finally {
@@ -61,7 +70,11 @@ export function AuthForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
+      {errorMessage && (
+        <p className={`text-sm ${errorMessage.includes('réussie') ? 'text-green-500' : 'text-red-500'}`}>
+          {errorMessage}
+        </p>
+      )}
 
       <div>
         <Input

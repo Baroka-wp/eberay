@@ -148,9 +148,9 @@ export default function CoursADomicilePage() {
 
                         <div className="flex items-center justify-center">
                             <div className="aspect-square w-full max-w-md rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="/assets/img_2.jpeg"
-                                    alt="Cours à domicile personnalisés"
+                                                                <img 
+                                    src="/assets/img_3.jpeg" 
+                                    alt="Cours à domicile personnalisés" 
                                     className="w-full h-full object-cover"
                                 />
                             </div>
@@ -228,62 +228,26 @@ export default function CoursADomicilePage() {
                 </div>
             </section>
 
-            {/* Subjects Section */}
+                        {/* Subjects Section */}
             <section className="section bg-hover-bg">
                 <div className="container-apple">
-                    <div className="mb-12 text-center">
-                        <h2 className="mb-4 font-display text-3xl font-semibold text-foreground md:text-4xl">
+                    <div className="text-center max-w-4xl mx-auto">
+                        <h2 className="mb-6 font-display text-3xl font-semibold text-foreground md:text-4xl">
                             Nos matières proposées
                         </h2>
-                        <p className="text-text-subtle">
-                            Un large choix de matières adaptées à tous les niveaux scolaires
+                        <p className="mb-8 text-lg text-text-subtle">
+                            Nous couvrons un large éventail de matières pour tous les niveaux scolaires : 
+                            <strong className="text-foreground"> Mathématiques, Sciences Physiques, Français, Langues Vivantes, Histoire-Géographie et SVT</strong>.
                         </p>
-                    </div>
-
-                    <div className="grid-apple-3">
-                        {subjects.map((subject) => (
-                            <div
-                                key={subject.title}
-                                className="card-glass interactive-card overflow-hidden"
-                            >
-                                <div className="aspect-video overflow-hidden border-b border-border relative">
-                                    <img
-                                        src={`/assets/img_${(subjects.indexOf(subject) % 8) + 1}.jpeg`}
-                                        alt={`Cours de ${subject.title}`}
-                                        className="w-full h-full object-cover"
-                                    />
-                                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                                        <div className="text-center text-white">
-                                            <div className="text-4xl mb-2">{subject.icon}</div>
-                                            <p className="text-xs font-medium">Niveaux {subject.levels}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="p-6">
-                                    <h3 className="mb-3 font-semibold text-foreground">{subject.title}</h3>
-                                    <p className="mb-4 text-text-subtle">{subject.description}</p>
-
-                                    <div className="mb-4">
-                                        <p className="text-sm font-medium text-foreground mb-2">Programme inclus :</p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {subject.features.map((feature) => (
-                                                <span
-                                                    key={feature}
-                                                    className="px-3 py-1 text-xs bg-accent/10 text-accent rounded-full"
-                                                >
-                                                    {feature}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    <button className="btn btn-primary w-full text-sm">
-                                        En savoir plus
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
+                        <p className="mb-8 text-text-subtle">
+                            Du CP à la Terminale, nos professeurs expérimentés s'adaptent aux besoins spécifiques de chaque élève 
+                            pour garantir sa réussite dans toutes les disciplines.
+                        </p>
+                        <a href="/contact">
+                            <button className="btn btn-primary">
+                                En savoir plus sur nos matières
+                            </button>
+                        </a>
                     </div>
                 </div>
             </section>

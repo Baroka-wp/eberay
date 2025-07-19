@@ -14,7 +14,7 @@ E-BEYRAY vise à offrir un environnement d'apprentissage interactif et collabora
 
 ### 🔐 Authentification & Sécurité
 
-- Authentification avec **Supabase** (inscription, connexion, récupération de mot de passe)
+- Système d'authentification (inscription, connexion, récupération de mot de passe)
 
 ### 📚 Gestion des Cours
 

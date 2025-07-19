@@ -43,9 +43,9 @@ const Hero = () => {
         {/* Hero Image Section */}
         <div className="mb-16 max-w-4xl">
           <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-lg">
-            <img
-              src="/assets/img_1.jpeg"
-              alt="Apprentissage collaboratif et interactif"
+                        <img 
+              src="/assets/img_2.jpeg" 
+              alt="Apprentissage collaboratif et interactif" 
               className="w-full h-full object-cover"
             />
           </div>

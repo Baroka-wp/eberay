@@ -1,39 +1,20 @@
-// import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
-// import { NextResponse } from 'next/server'
-// import type { NextRequest } from 'next/server'
-
-// export async function middleware(req: NextRequest) {
-//   const res = NextResponse.next()
-//   const supabase = createMiddlewareClient({ req, res })
-//   const {
-//     data: { session },
-//   } = await supabase.auth.getSession()
-
-//   // Protection des routes privées
-//   if (req.nextUrl.pathname.startsWith('/dashboard') && !session) {
-//     return NextResponse.redirect(new URL('/auth', req.url))
-//   }
-
-//   // Redirection si déjà connecté
-//   if (req.nextUrl.pathname === '/auth' && session) {
-//     return NextResponse.redirect(new URL('/dashboard', req.url))
-//   }
-
-//   return res
-// }
-
-// export const config = {
-//   matcher: ['/dashboard/:path*', '/auth'],
-// }
+// File: middleware.ts
+// Purpose: Middleware Next.js pour la gestion des routes
+// Dependencies: next/server
+// Sections:
+// 1. Configuration du middleware
+// 2. Protection des routes (désactivée pour l'instant)
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export async function middleware(req: NextRequest) {
-  // Aucune vérification d'authentification, toutes les routes sont ouvertes
+  // Aucune vérification d'authentification pour l'instant
+  // Toutes les routes sont accessibles
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/auth'], // Toutes les routes sont accessibles
+  // Définit les routes sur lesquelles le middleware s'applique
+  matcher: ['/dashboard/:path*', '/auth'],
 };

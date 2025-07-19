@@ -1,29 +1,40 @@
+// File: hooks/useAuth.ts
+// Purpose: Hook d'authentification simple sans dépendance externe
+// Dependencies: react
+// Sections:
+// 1. État utilisateur local
+// 2. Fonctions d'authentification basiques
+
 'use client';
 
-import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
+import { useState } from 'react';
+
+interface User {
+  id: string;
+  email: string;
+  name?: string;
+}
 
 export function useAuth() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (!error) setUser(data.user);
-    };
+  const login = (userData: User) => {
+    setUser(userData);
+    // Ici vous pouvez ajouter la logique de stockage en localStorage si nécessaire
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
 
-    fetchUser();
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
 
-    // Écouter les changements d'auth
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user || null);
-    });
+  const isAuthenticated = !!user;
 
-    // Nettoyer le listener d'auth lors du démontage du composant
-    return () => {
-      authListener?.subscription?.unsubscribe();
-    };
-  }, []); // Ne pas avoir de dépendance sur supabase, car il ne change pas
-
-  return { user, supabase };
+  return { 
+    user, 
+    login, 
+    logout, 
+    isAuthenticated 
+  };
 }

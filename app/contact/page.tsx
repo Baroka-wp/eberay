@@ -6,20 +6,20 @@ import { useState } from 'react';
 const contactInfo = [
     {
         title: "Téléphone",
-        value: "+33 1 23 45 67 89",
+        value: "+227 91 30 75 15",
         description: "Lundi au Vendredi, 8h-19h",
         icon: <Phone className="h-6 w-6" />
     },
     {
         title: "Email",
-        value: "contact@e-beyray.fr",
+        value: "groupesavoirplus@gmail.com",
         description: "Réponse sous 24h",
         icon: <Mail className="h-6 w-6" />
     },
     {
-        title: "Adresse",
-        value: "123 Avenue de l'Éducation",
-        description: "75001 Paris, France",
+        title: "Entreprise",
+        value: "Groupe Savoir Plus",
+        description: "Spécialiste en éducation",
         icon: <MapPin className="h-6 w-6" />
     },
     {
@@ -83,6 +83,7 @@ export default function ContactPage() {
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -95,20 +96,62 @@ export default function ContactPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setSubmitStatus('idle');
 
-        // Simulation d'envoi du formulaire
-        setTimeout(() => {
-            setIsSubmitting(false);
-            alert('Votre message a été envoyé avec succès ! Nous vous recontacterons rapidement.');
-            setFormData({
-                nom: '',
-                email: '',
-                telephone: '',
-                niveau: '',
-                matiere: '',
-                message: ''
+        try {
+            // Validation côté client
+            if (!formData.nom.trim() || !formData.email.trim()) {
+                throw new Error('Le nom et l\'email sont obligatoires');
+            }
+
+            // Validation email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                throw new Error('Format d\'email invalide');
+            }
+
+            // Envoi via l'API Mailjet
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
             });
-        }, 2000);
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                setSubmitStatus('success');
+                alert('✅ Votre demande a été envoyée avec succès ! Nous vous recontacterons rapidement.');
+
+                // Réinitialiser le formulaire
+                setFormData({
+                    nom: '',
+                    email: '',
+                    telephone: '',
+                    niveau: '',
+                    matiere: '',
+                    message: ''
+                });
+            } else {
+                throw new Error(result.error || 'Erreur lors de l\'envoi');
+            }
+
+        } catch (error: any) {
+            console.error('❌ Erreur lors de l\'envoi:', error);
+            setSubmitStatus('error');
+
+            let errorMessage = 'Erreur lors de l\'envoi du formulaire.';
+
+            if (error.message) {
+                errorMessage = error.message;
+            }
+
+            alert(`❌ ${errorMessage}\n\nVous pouvez nous contacter directement à : groupesavoirplus@gmail.com`);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -164,9 +207,18 @@ export default function ContactPage() {
                     <div className="grid-apple-2 gap-12">
                         {/* Contact Form */}
                         <div className="card-glass p-8">
-                            <h2 className="mb-6 font-display text-2xl font-semibold text-foreground">
-                                Demande de contact
-                            </h2>
+                            <div className="mb-6 flex items-center justify-between">
+                                <h2 className="font-display text-2xl font-semibold text-foreground">
+                                    Demande de contact
+                                </h2>
+                                {submitStatus === 'success' && (
+                                    <div className="flex items-center text-green-600">
+                                        <CheckCircle className="h-5 w-5 mr-2" />
+                                        <span className="text-sm">Envoyé !</span>
+                                    </div>
+                                )}
+                            </div>
+
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid-apple-2 gap-4">
                                     <div>
@@ -269,10 +321,16 @@ export default function ContactPage() {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="btn btn-primary w-full"
+                                    className={`btn btn-primary w-full ${submitStatus === 'success' ? 'bg-green-600 hover:bg-green-700' : ''
+                                        }`}
                                 >
                                     {isSubmitting ? (
                                         "Envoi en cours..."
+                                    ) : submitStatus === 'success' ? (
+                                        <>
+                                            <CheckCircle className="mr-2 h-4 w-4" />
+                                            Message envoyé !
+                                        </>
                                     ) : (
                                         <>
                                             <Send className="mr-2 h-4 w-4" />
